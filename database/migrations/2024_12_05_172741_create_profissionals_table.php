@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('especialidade');
             $table->string('registro');
             $table->timestamps();
-            $table->foreignId('pessoas_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('pessoa_id')->constrained()->cascadeOnUpdate();
         });
     }
 

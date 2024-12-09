@@ -2,20 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Profissional extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'denominacao',
-        'registro'
+        'registro',
+        'especialidade',
+        'pessoa_id'
     ];
 
-    public function pessoa(): HasOne
+
+    public function pessoa(): BelongsTo
     {
-        return $this->hasOne(Pessoa::class);
+        return $this->belongsTo(Pessoa::class);
     }
     public function atendimentoDopplers(): HasMany
     {

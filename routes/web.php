@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PessoaController;
+use \App\Http\Controllers\ProfissionalController;
 use \App\Http\Controllers\AtendimentoController;
 use \App\Http\Controllers\GrupoController;
 
@@ -21,6 +22,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('pessoas', PessoaController::class)
+    ->only(['index', 'show', 'create', 'store', 'edit', 'update','destroy'])
+    ->middleware(['auth', 'verified']);
+Route::resource('profissionals', ProfissionalController::class)
     ->only(['index', 'show', 'create', 'store', 'edit', 'update','destroy'])
     ->middleware(['auth', 'verified']);
 Route::resource('atendimentos', AtendimentoController::class)

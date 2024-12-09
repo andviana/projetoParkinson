@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Pessoa extends Model
 {
     use HasFactory;
@@ -24,9 +24,9 @@ class Pessoa extends Model
     {
         return $this->hasMany(User::class);
     }
-    public function profissional(): HasOne
+    public function profissional(): BelongsTo
     {
-        return $this->hasOne(Profissional::class);
+        return $this->BelongsTo(Profissional::class);
     }
 
 }
