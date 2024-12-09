@@ -10,23 +10,24 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    <a href="{{ route('profissionals.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Novo Profissional</a>
+                    <a href="{{ route('profissionals.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        <i class="fa fa-plus mr-1"></i> Novo </a>
 
                     <div class="overflow-x-auto relative mt-6">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="py-3 px-6">
+                                    Nome
+                                </th>
+                                <th scope="col" class="py-3 px-6">
+                                    Especialidade
+                                </th>
+                                <th scope="col" class="py-3 px-6">
                                     Registro
                                 </th>
                                 <th scope="col" class="py-3 px-6">
-                                    Denominação
-                                </th>
-                                <th scope="col" class="py-3 px-6">
-                                    Pessoa
-                                </th>
-                                <th scope="col" class="py-3 px-6">
-                                    Ações
+                                    #
                                 </th>
                             </tr>
                             </thead>
@@ -43,12 +44,18 @@
                                         {{ $profissional->registro }}
                                     </td>
                                     <td class="py-4 px-6">
-                                        <a href="{{ route('profissionals.show', $profissional->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Visualizar</a>
-                                        <a href="{{ route('profissionals.edit', $profissional->id) }}" class="font-medium text-yellow-600 dark:text-yellow-500 hover:underline">Editar</a>
+                                        <a href="{{ route('profissionals.show', $profissional->id) }}" title="mostrar" class="font-medium text-blue-600 dark:text-blue-500 hover:no-underline">
+                                            <i class="fa-regular fa-file mx-2"></i>
+                                        </a>
+                                        <a href="{{ route('profissionals.edit', $profissional->id) }}" title="editar" class="font-medium text-yellow-600 dark:text-yellow-500 hover:no-underline">
+                                            <i class="fas fa-edit mx-2"></i>
+                                        </a>
                                         <form action="{{ route('profissionals.destroy', $profissional->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline" onclick="return confirm('Tem certeza que deseja excluir este profissional?')">Excluir</button>
+                                            <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline" title="excluir" onclick="return confirm('Tem certeza que deseja excluir este profissional?')">
+                                                <i class="fa-solid fa-xmark mx-2"></i>
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>

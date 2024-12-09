@@ -12,9 +12,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Font Awesome -->
-        <script data-search-pseudo-elements defer
-                src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
-                crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/3209807a72.js" crossorigin="anonymous"></script>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
