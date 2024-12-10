@@ -14,6 +14,9 @@
         <!-- Font Awesome -->
         <script src="https://kit.fontawesome.com/3209807a72.js" crossorigin="anonymous"></script>
 
+        <!-- Flow Bite -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>

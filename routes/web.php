@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CondicaoController;
+use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PessoaController;
@@ -24,14 +26,26 @@ Route::middleware('auth')->group(function () {
 Route::resource('pessoas', PessoaController::class)
     ->only(['index', 'show', 'create', 'store', 'edit', 'update','destroy'])
     ->middleware(['auth', 'verified']);
+
 Route::resource('profissionals', ProfissionalController::class)
     ->only(['index', 'show', 'create', 'store', 'edit', 'update','destroy'])
     ->middleware(['auth', 'verified']);
+
+Route::resource('pacientes', PacienteController::class)
+    ->only(['index', 'show', 'create', 'store', 'edit', 'update','destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('condicaos', CondicaoController::class)
+    ->only(['index', 'show', 'create', 'store', 'edit', 'update','destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('grupos', GrupoController::class)
+    ->only(['index', 'show', 'create', 'store', 'edit', 'update','destroy'])
+    ->middleware(['auth', 'verified']);
+
 Route::resource('atendimentos', AtendimentoController::class)
     ->only(['index', 'store', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
-Route::resource('grupos', GrupoController::class)
-    ->only(['index', 'store', 'edit', 'update'])
-    ->middleware(['auth', 'verified']);
+
 
 require __DIR__.'/auth.php';

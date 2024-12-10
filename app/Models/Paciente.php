@@ -2,34 +2,40 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Paciente extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'ativo',
         'dataVinculo',
-        'dataDesligamento'
+        'dataDesligamento',
+        'grupo_id',
+        'pessoa_id',
+        'condicao_id',
     ];
     protected $dates = ['dataVinculo, dataDesligamento'];
 
 
+    public function pessoa(): BelongsTo
+    {
+        return $this->BelongsTo(Pessoa::class);
+    }
+    public function grupo(): BelongsTo
+    {
+        return $this->BelongsTo(Grupo::class);
+    }
+    public function condicao(): BelongsTo
+    {
+        return $this->BelongsTo(Condicao::class);
+    }
     public function atendimentos(): HasMany
     {
         return $this->hasMany(Atendimento::class);
-    }
-    public function pessoa(): HasOne
-    {
-        return $this->hasOne(Pessoa::class);
-    }
-    public function grupo(): HasOne
-    {
-        return $this->hasOne(Grupo::class);
-    }
-    public function condicao(): HasOne
-    {
-        return $this->hasOne(Condicao::class);
     }
 }

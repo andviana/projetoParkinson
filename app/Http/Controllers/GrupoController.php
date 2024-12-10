@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Condicao;
 use App\Models\Grupo;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,17 @@ class GrupoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'denominacao' => ['required', 'string', 'max:255'],
+        ]);
+        Grupo::create($validatedData);
+        $grupos = Grupo::all();
+        switch ($request->modal_origin) {
+            case 'v_paciente':
+                return redirect()->route('pacientes.create', compact('grupos'));
+            default:
+                return redirect()->route('grupos.index')->with('success', 'Grupo criada com sucesso!');
+        }
     }
 
     /**

@@ -28,7 +28,17 @@ class CondicaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'denominacao' => ['required', 'string', 'max:255'],
+        ]);
+        Condicao::create($validatedData);
+        $condicaos = Condicao::all();
+        switch ($request->modal_origin) {
+            case 'v_paciente':
+                return redirect()->route('pacientes.create', compact('condicaos'));
+            default:
+                return redirect()->route('condicaos.index')->with('success', 'Condição criada com sucesso!');
+        }
     }
 
     /**

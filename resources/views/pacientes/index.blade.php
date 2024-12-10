@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Lista de Profissionais') }}
+            {{ __('Lista de Pacientes') }}
         </h2>
     </x-slot>
 
@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    <a href="{{ route('profissionals.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    <a href="{{ route('pacientes.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         <i class="fa fa-plus mr-1"></i> Novo </a>
 
                     <div class="overflow-x-auto relative mt-6">
@@ -21,10 +21,10 @@
                                     Nome
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Especialidade
+                                    Grupo
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Registro
+                                    Condição
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     #
@@ -32,28 +32,28 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach ($profissionais as $profissional)
+                            @foreach ($pacientes as $paciente)
                                 <tr>
                                     <td class="py-4 px-6">
-                                        {{ $profissional->pessoa->nome }}
+                                        {{ $paciente->pessoa->nome }}
                                     </td>
                                     <td class="py-4 px-6">
-                                        {{ $profissional->especialidade }}
+                                        {{ $paciente->grupo->denominacao }}
                                     </td>
                                     <td class="py-4 px-6">
-                                        {{ $profissional->registro }}
+                                        {{ $paciente->condicao->denominacao }}
                                     </td>
                                     <td class="py-4 px-6">
-                                        <a href="{{ route('profissionals.show', $profissional->id) }}" title="mostrar" class="font-medium text-blue-600 dark:text-blue-500 hover:no-underline">
+                                        <a href="{{ route('pacientes.show', $paciente->id) }}" title="mostrar" class="font-medium text-blue-600 dark:text-blue-500 hover:no-underline">
                                             <i class="fa-regular fa-file mx-2"></i>
                                         </a>
-                                        <a href="{{ route('profissionals.edit', $profissional->id) }}" title="editar" class="font-medium text-indigo-600 dark:indigo-yellow-500 hover:no-underline">
+                                        <a href="{{ route('pacientes.edit', $paciente->id) }}" title="editar" class="font-medium text-indigo-600 dark:indigo-yellow-500 hover:no-underline">
                                             <i class="fas fa-edit mx-2"></i>
                                         </a>
-                                        <form action="{{ route('profissionals.destroy', $profissional->id) }}" method="POST" class="inline">
+                                        <form action="{{ route('pacientes.destroy', $paciente->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline" title="excluir" onclick="return confirm('Tem certeza que deseja excluir este profissional?')">
+                                            <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline" title="excluir" onclick="return confirm('Tem certeza que deseja desvincular este paciente?')">
                                                 <i class="fa-solid fa-xmark mx-2"></i>
                                             </button>
                                         </form>

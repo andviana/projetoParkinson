@@ -37,10 +37,17 @@ class PessoaController extends Controller
             'dataNascimento' => ['required', 'date'],
             'genero' => ['required'],
         ]);
-
         Pessoa::create($validatedData);
-
-        return redirect()->route('pessoas.index')->with('success', 'Pessoa criada com sucesso!');
+        $pessoas = Pessoa::all();
+        switch ($request->modal_origin) {
+            case 'v_profissional':
+                return redirect()->route('profissionals.create', compact('pessoas'));
+            case 'v_paciente':
+                return redirect()->route('pacientes.create', compact('pessoas'));
+            // Adicione mais casos aqui, se necessário
+            default:
+                return redirect()->route('pessoas.index')->with('success', 'Pessoa criada com sucesso!');
+        }
     }
 
 
