@@ -12,7 +12,8 @@ class ProjetoController extends Controller
      */
     public function index()
     {
-        //
+        $projetos = Projeto::all();
+        return view('projetos.index', compact('projetos'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ProjetoController extends Controller
      */
     public function create()
     {
-        //
+        return view('projetos.create');
     }
 
     /**
@@ -28,7 +29,11 @@ class ProjetoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'denominacao' => 'required|string',
+        ]);
+        Projeto::create($validatedData);
+        return redirect()->route('projetos.index')->with('success', 'Projeto criado com sucesso!');
     }
 
     /**
@@ -36,7 +41,8 @@ class ProjetoController extends Controller
      */
     public function show(Projeto $projeto)
     {
-        //
+        Projeto::with('grupos');
+        return view('projetos.show', compact('projeto'));
     }
 
     /**
@@ -44,7 +50,7 @@ class ProjetoController extends Controller
      */
     public function edit(Projeto $projeto)
     {
-        //
+        return view('projetos.edit', compact('projeto'));
     }
 
     /**
@@ -52,7 +58,11 @@ class ProjetoController extends Controller
      */
     public function update(Request $request, Projeto $projeto)
     {
-        //
+        $request->validate([
+            'denominacao' => 'required|string',
+        ]);
+        $projeto->update($request->all());
+        return redirect()->route('projetos.index')->with('success', 'Projeto atualizado com sucesso!');
     }
 
     /**
@@ -60,6 +70,8 @@ class ProjetoController extends Controller
      */
     public function destroy(Projeto $projeto)
     {
-        //
+        $projeto->delete();
+
+        return redirect()->route('projetos.index')->with('success', 'Projeto excluído com sucesso!');
     }
 }

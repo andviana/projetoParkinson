@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('denominacao');
             $table->timestamps();
-            $table->foreignId('projetos_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('projeto_id')->constrained()->cascadeOnUpdate();
         });
     }
 

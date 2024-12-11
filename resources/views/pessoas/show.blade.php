@@ -1,23 +1,19 @@
 <x-app-layout>
     <div class="container mx-auto p-8">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold">Dados da Pessoa</h1>
+            <h1 class="text-3xl font-bold">{{ $pessoa->nome }}</h1>
 
             <a href="{{ route('pessoas.create') }}"
                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 <i class="fa-solid fa-plus mr-2"></i> Listar
             </a>
         </div>
-        {{--        <x-alert type="success" message="{{ session('success') }}" />--}}
+
         <div class="bg-white shadow-md rounded p-6">
-            <div class="mb-4">
-                <span class="font-bold text-gray-700">Nome:</span> {{ $pessoa->nome }}
-            </div>
             <div class="mb-4">
                 <span
                     class="font-bold text-gray-700">Data de Nascimento:</span>
-{{--                {{ $pessoa->dataNascimento->format('d/m/Y') }}--}}
-                {{ date('d/m/Y', strtotime($pessoa->dataNascimento)) }}
+                    {{ date('d/m/Y', strtotime($pessoa->dataNascimento)) }}
             </div>
             <div class="mb-4">
                 <span class="font-bold text-gray-700">Gênero:</span> {{ $pessoa->genero }}
@@ -27,40 +23,58 @@
                 <div class="mt-6">
                     <h2 class="text-xl font-semibold mb-2">Dados do Profissional</h2>
                     <div class="border rounded p-4">
-                        <div class="mb-2">
+                        <div class="">
+                            <span
+                                class="font-bold text-gray-700">Nome Carimbo:</span> {{ $profissional->denominacao }}
+                        </div>
+                        <div class="">
                             <span
                                 class="font-bold text-gray-700">Especialidade:</span> {{ $profissional->especialidade }}
                         </div>
                         <div class="mb-2">
-                            <span class="font-bold text-gray-700">CRM:</span> {{ $profissional->crm }}
+                            <span class="font-bold text-gray-700">CRM:</span> {{ $profissional->registro }}
                         </div>
                     </div>
                 </div>
             @endif
 
-            @if ($pessoa->user)
-                <div class="mt-6">
-                    <h2 class="text-xl font-semibold mb-2">Dados do Usuário</h2>
-                    <div class="border rounded p-4">
-                        <div class="mb-2">
-                            <span class="font-bold text-gray-700">Email:</span> {{ $pessoa->user->email }}
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            @if ($pessoa->paciente)
+            @if ($paciente)
                 <div class="mt-6">
                     <h2 class="text-xl font-semibold mb-2">Dados do Paciente</h2>
                     <div class="border rounded p-4">
-                        <div class="mb-2">
+                        <div class="">
                             <span
-                                class="font-bold text-gray-700">Plano de Saúde:</span> {{ $pessoa->paciente->planoSaude }}
+                                class="font-bold text-gray-700">Projeto:</span> {{ $paciente->grupo->projeto->denominacao }}
                         </div>
-                        <div class="mb-2">
+                        <div class="">
                             <span
-                                class="font-bold text-gray-700">Número da Carteirinha:</span> {{ $pessoa->paciente->numeroCarteirinha }}
+                                class="font-bold text-gray-700">Grupo:</span> {{ $paciente->grupo->denominacao }}
                         </div>
+                        <div class="">
+                            <span
+                                class="font-bold text-gray-700">Condição:</span> {{ $paciente->condicao->denominacao }}
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if ($atendimentos_agrupados->count() > 0 )
+                <div class="mt-6">
+                    <h2 class="text-xl font-semibold mb-2">Atendimentos</h2>
+                    <div class="border rounded p-4">
+                        @foreach ($atendimentos_agrupados as $tipo_atendimento => $atendimentos)
+                            <div>
+                                <h3 class="font-bold bg-gray-200 p-2">{{ $tipo_atendimento->denominacao }}</h3>
+                                <ul>
+                                    @foreach ($atendimentos as $atendimento)
+                                        <li class="py-4 px-6">
+                                            {{ date('d/m/Y', strtotime($atendimento->dataAtendimento)) }} -
+                                            {{$atendimento->profissional->denominacao}}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             @endif

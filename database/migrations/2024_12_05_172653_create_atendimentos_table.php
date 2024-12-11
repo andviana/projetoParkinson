@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->date('dataAtendimento');
             $table->timestamps();
-            $table->foreignId('users_id')->constrained();
-            $table->foreignId('pacientes_id')->constrained()->cascadeOnUpdate();
-            $table->foreignId('tipo_atendimentos_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('paciente_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('tipo_atendimento_id')->constrained()->cascadeOnUpdate();
         });
     }
 

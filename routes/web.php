@@ -3,6 +3,8 @@
 use App\Http\Controllers\CondicaoController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjetoController;
+use App\Http\Controllers\TipoAtendimentoController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PessoaController;
 use \App\Http\Controllers\ProfissionalController;
@@ -40,6 +42,14 @@ Route::resource('condicaos', CondicaoController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('grupos', GrupoController::class)
+    ->only(['index', 'show', 'create', 'store', 'edit', 'update','destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('projetos', ProjetoController::class)
+    ->only(['index', 'show', 'create', 'store', 'edit', 'update','destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('tipo_atendimentos', TipoAtendimentoController::class)
     ->only(['index', 'show', 'create', 'store', 'edit', 'update','destroy'])
     ->middleware(['auth', 'verified']);
 

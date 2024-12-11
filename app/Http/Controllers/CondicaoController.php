@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Condicao;
+use App\Models\Paciente;
 use Illuminate\Http\Request;
 
 class CondicaoController extends Controller
@@ -12,7 +13,8 @@ class CondicaoController extends Controller
      */
     public function index()
     {
-        //
+        $condicaos = Condicao::all(); // Busca todas as pessoas no banco de dados
+        return view('condicaos.index', ['condicaos' => $condicaos]);
     }
 
     /**
@@ -20,7 +22,7 @@ class CondicaoController extends Controller
      */
     public function create()
     {
-        //
+        return view('condicaos.create');
     }
 
     /**
@@ -46,7 +48,8 @@ class CondicaoController extends Controller
      */
     public function show(Condicao $condicao)
     {
-        //
+        $pacientes = Paciente::where('condicao_id', $condicao->id);
+        return view('condicaos.show', compact('condicao', 'pacientes'));
     }
 
     /**
@@ -54,7 +57,7 @@ class CondicaoController extends Controller
      */
     public function edit(Condicao $condicao)
     {
-        //
+        return view('condicaos.edit', compact('condicao'));
     }
 
     /**
@@ -62,7 +65,11 @@ class CondicaoController extends Controller
      */
     public function update(Request $request, Condicao $condicao)
     {
-        //
+        $request->validate([
+            'denominacao' => 'required|string',
+        ]);
+        $condicao->update($request->all());
+        return redirect()->route('condicaos.index')->with('success', 'Condição atualizada com sucesso!');
     }
 
     /**
@@ -70,6 +77,8 @@ class CondicaoController extends Controller
      */
     public function destroy(Condicao $condicao)
     {
-        //
+        $condicao->delete();
+
+        return redirect()->route('condicaos.index')->with('success', 'Condição excluída com sucesso!');
     }
 }

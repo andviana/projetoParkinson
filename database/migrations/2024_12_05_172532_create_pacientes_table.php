@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->boolean('ativo');
             $table->date('dataVinculo');
-            $table->date('dataDesligamento');
+            $table->date('dataDesligamento')->nullable();
             $table->timestamps();
-            $table->foreignId('pessoas_id')->constrained()->cascadeOnUpdate();
-            $table->foreignId('grupos_id')->constrained()->cascadeOnUpdate();
-            $table->foreignId('condicaos_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('grupo_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('pessoa_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('condicao_id')->constrained()->cascadeOnUpdate();
         });
     }
 

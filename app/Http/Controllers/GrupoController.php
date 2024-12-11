@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Condicao;
 use App\Models\Grupo;
+use App\Models\Projeto;
 use Illuminate\Http\Request;
 
 class GrupoController extends Controller
@@ -13,7 +13,8 @@ class GrupoController extends Controller
      */
     public function index()
     {
-        //
+        $grupos = Grupo::all();
+        return view('grupos.index', compact('grupos'));
     }
 
     /**
@@ -21,7 +22,8 @@ class GrupoController extends Controller
      */
     public function create()
     {
-        //
+        $projetos = Projeto::all();
+        return view('grupos.create', compact('projetos'));
     }
 
     /**
@@ -30,15 +32,17 @@ class GrupoController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'projeto_id' => 'required|exists:projetos,id',
             'denominacao' => ['required', 'string', 'max:255'],
         ]);
         Grupo::create($validatedData);
+
         $grupos = Grupo::all();
         switch ($request->modal_origin) {
             case 'v_paciente':
                 return redirect()->route('pacientes.create', compact('grupos'));
             default:
-                return redirect()->route('grupos.index')->with('success', 'Grupo criada com sucesso!');
+                return redirect()->route('grupos.index')->with('success', 'Grupo criado com sucesso!');
         }
     }
 
@@ -47,7 +51,8 @@ class GrupoController extends Controller
      */
     public function show(Grupo $grupo)
     {
-        //
+        $pacientes_agrupados = $grupo->pacientes->groupBy('condicao.denominacao');
+        return view('grupos.show', compact('grupo', 'pacientes_agrupados'));
     }
 
     /**
@@ -55,7 +60,7 @@ class GrupoController extends Controller
      */
     public function edit(Grupo $grupo)
     {
-        //
+        return view('grupos.edit', compact('grupo'));
     }
 
     /**
@@ -63,7 +68,11 @@ class GrupoController extends Controller
      */
     public function update(Request $request, Grupo $grupo)
     {
-        //
+        $request->validate([
+            'denominacao' => 'required|string',
+        ]);
+        $grupo->update($request->all());
+        return redirect()->route('grupos.index')->with('success', 'Grupo atualizado com sucesso!');
     }
 
     /**
@@ -71,6 +80,8 @@ class GrupoController extends Controller
      */
     public function destroy(Grupo $grupo)
     {
-        //
+        $grupo->delete();
+
+        return redirect()->route('grupos.index')->with('success', 'Grupo excluído com sucesso!');
     }
 }
