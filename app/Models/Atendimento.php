@@ -9,7 +9,7 @@ class Atendimento extends Model
 {
     protected $fillable = [
         'dataAtendimento',
-        'dataCadastro'
+        'dataCadastro',
         ];
 
     protected $dates = ['dataAtendimento, dataCadastro'];
@@ -18,7 +18,7 @@ class Atendimento extends Model
     {
         return $this->hasOne(AtendimentoDoppler::class);
     }
-    public function atendimentoNV(): HasOne
+    public function atendimentoNV(): hasOne
     {
         return $this->hasOne(AtendimentoNV::class);
     }

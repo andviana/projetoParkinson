@@ -57,6 +57,9 @@
                                                 <i class="fa-solid fa-xmark mx-2"></i>
                                             </button>
                                         </form>
+                                        <a href="{{ route('atendimentos.create', ['id'=>$paciente->id]) }}" title="atender" class="font-medium text-indigo-600 dark:indigo-yellow-500 hover:no-underline">
+                                            <i class="fa fa-chevron-right mx-2"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

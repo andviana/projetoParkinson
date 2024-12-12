@@ -54,7 +54,7 @@ Route::resource('tipo_atendimentos', TipoAtendimentoController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('atendimentos', AtendimentoController::class)
-    ->only(['index', 'store', 'edit', 'update'])
+    ->only(['index', 'create', 'store', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
 
 
