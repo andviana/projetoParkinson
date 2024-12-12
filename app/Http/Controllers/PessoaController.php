@@ -65,8 +65,12 @@ class PessoaController extends Controller
     {
         $profisisonal = Profissional::where('pessoa_id', $pessoa->id)->first();
         $paciente = Paciente::where('pessoa_id', $pessoa->id)->first();
-        $atendimentos = Atendimento::where('paciente_id', $paciente->id);
-        $atendimentos_agrupados = $atendimentos->groupBy('tipo_atendimento');
+        $atendimentos = null;
+        $atendimentos_agrupados = null;
+        if ($paciente) {
+            $atendimentos = Atendimento::where('paciente_id', $paciente->id);
+            $atendimentos_agrupados = $atendimentos->groupBy('tipo_atendimento');
+        }
 
         return view('pessoas.show', [
             'pessoa' => $pessoa,
@@ -81,7 +85,7 @@ class PessoaController extends Controller
      */
     public function edit(Pessoa $pessoa)
     {
-        //
+        return view('pessoas.edit', compact('pessoa'));
     }
 
     /**
@@ -89,7 +93,18 @@ class PessoaController extends Controller
      */
     public function update(Request $request, Pessoa $pessoa)
     {
-        //
+        $request->validate([
+            'nome' => ['required', 'string', 'max:255'],
+            'dataNascimento' => [
+                'required',
+                'date',
+                'before_or_equal:today', // Menor ou igual a hoje
+                'after_or_equal:1900-01-01' // Maior ou igual a 01/01/1900
+            ],
+            'genero' => ['required'],
+        ]);
+        $pessoa->update($request->all());
+        return redirect()->route('pessoas.index')->with('success', 'Dados da pessoa atualizados com sucesso!');
     }
 
     /**
@@ -97,6 +112,8 @@ class PessoaController extends Controller
      */
     public function destroy(Pessoa $pessoa)
     {
-        //
+        $pessoa->delete();
+
+        return redirect()->route('pessoas.index')->with('success', 'Pessoa excluída com sucesso!');
     }
 }

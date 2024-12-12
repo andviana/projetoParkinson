@@ -58,7 +58,7 @@
                 </div>
             @endif
 
-            @if ($atendimentos_agrupados->count() > 0 )
+            @if ($atendimentos_agrupados && $atendimentos_agrupados->count() > 0 )
                 <div class="mt-6">
                     <h2 class="text-xl font-semibold mb-2">Atendimentos</h2>
                     <div class="border rounded p-4">
