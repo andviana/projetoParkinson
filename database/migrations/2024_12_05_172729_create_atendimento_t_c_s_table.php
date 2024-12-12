@@ -22,8 +22,8 @@ return new class extends Migration
             $table->boolean('hiperecogenecidade_e');
             $table->boolean('hiperecogenecidade_e_area');
             $table->timestamps();
-            $table->foreignId('atendimentos_id')->constrained()->cascadeOnUpdate();
-            $table->foreignId('profissionals_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('atendimento_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('profissional_id')->constrained()->cascadeOnUpdate();
         });
     }
 

@@ -13,17 +13,33 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Inicio') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('pessoas.index')" :active="request()->routeIs('pessoas.index')">
-                        {{ __('Pessoas') }}
+                    <x-nav-link :href="route('pacientes.index')" :active="request()->routeIs('pacientes.index')">
+                        {{ __('Pacientes') }}
                     </x-nav-link>
                     <x-nav-link :href="route('atendimentos.index')" :active="request()->routeIs('atendimentos.index')">
-                        {{ __('Atendimentos') }}
+                        {{ __('Antedimentos') }}
                     </x-nav-link>
                     <x-nav-link :href="route('grupos.index')" :active="request()->routeIs('grupos.index')">
                         {{ __('Grupos') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('pessoas.index')" :active="request()->routeIs('pessoas.index')">
+                        {{ __('Pessoas') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('condicaos.index')" :active="request()->routeIs('condicaos.index')">
+                        {{ __('Condição') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('tipo_atendimentos.index')" :active="request()->routeIs('tipo_atendimentos.index')">
+                        {{ __('Tipo Atendimento') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('profissionals.index')" :active="request()->routeIs('profissionals.index')">
+                        {{ __('Profisisonal') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('projetos.index')" :active="request()->routeIs('projetos.index')">
+                        {{ __('Projeto') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 

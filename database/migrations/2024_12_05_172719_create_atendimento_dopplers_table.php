@@ -22,8 +22,8 @@ return new class extends Migration
             $table->decimal('p1_e_pico_cistolico');
             $table->decimal('p1_e_pico_distolico');
             $table->timestamps();
-            $table->foreignId('atendimentos_id')->constrained()->cascadeOnUpdate();
-            $table->foreignId('profissionals_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('atendimento_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('profissional_id')->constrained()->cascadeOnUpdate();
         });
     }
 
