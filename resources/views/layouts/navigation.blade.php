@@ -21,24 +21,40 @@
                     <x-nav-link :href="route('atendimentos.index')" :active="request()->routeIs('atendimentos.index')">
                         {{ __('Antedimentos') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('grupos.index')" :active="request()->routeIs('grupos.index')">
-                        {{ __('Grupos') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('pessoas.index')" :active="request()->routeIs('pessoas.index')">
-                        {{ __('Pessoas') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('condicaos.index')" :active="request()->routeIs('condicaos.index')">
-                        {{ __('Condição') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('tipo_atendimentos.index')" :active="request()->routeIs('tipo_atendimentos.index')">
-                        {{ __('Tipo Atendimento') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('profissionals.index')" :active="request()->routeIs('profissionals.index')">
-                        {{ __('Profisisonal') }}
-                    </x-nav-link>
                     <x-nav-link :href="route('projetos.index')" :active="request()->routeIs('projetos.index')">
                         {{ __('Projeto') }}
                     </x-nav-link>
+                    <div class="hidden sm:flex sm:items-center sm:ms-6">
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                    <div>{{ __('Cadastros') }}</div>
+
+                                    <div class="ms-1">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </button>
+                            </x-slot>
+
+                            <x-slot name="content">
+                                <x-dropdown-link :href="route('pessoas.index')" :active="request()->routeIs('profissionals.index')">
+                                    {{ __('Pessoas') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('profissionals.index')" :active="request()->routeIs('profissionals.index')">
+                                    {{ __('Profisisonal') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('condicaos.index')" :active="request()->routeIs('condicaos.index')">
+                                    {{ __('Condição') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('tipo_atendimentos.index')" :active="request()->routeIs('tipo_atendimentos.index')">
+                                    {{ __('Tipo Atendimento') }}
+                                </x-dropdown-link>
+
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
 
                 </div>
             </div>
@@ -100,9 +116,6 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('atendimentos.index')" :active="request()->routeIs('atendimentos.index')">
                 {{ __('Atendimentos') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('grupos.index')" :active="request()->routeIs('grupos.index')">
-                {{ __('Grupos') }}
             </x-responsive-nav-link>
         </div>
 

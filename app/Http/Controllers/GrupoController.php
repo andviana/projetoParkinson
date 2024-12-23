@@ -41,6 +41,8 @@ class GrupoController extends Controller
         switch ($request->modal_origin) {
             case 'v_paciente':
                 return redirect()->route('pacientes.create', compact('grupos'));
+            case 'v_projeto':
+                return redirect()->route('projetos.index', compact('grupos'));
             default:
                 return redirect()->route('grupos.index')->with('success', 'Grupo criado com sucesso!');
         }
@@ -72,7 +74,7 @@ class GrupoController extends Controller
             'denominacao' => 'required|string',
         ]);
         $grupo->update($request->all());
-        return redirect()->route('grupos.index')->with('success', 'Grupo atualizado com sucesso!');
+        return redirect()->route('grupos.show',$grupo->id)->with('success', 'Grupo atualizado com sucesso!');
     }
 
     /**
