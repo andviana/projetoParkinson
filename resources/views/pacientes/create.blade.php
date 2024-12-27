@@ -22,6 +22,7 @@
                             <label for="pessoa_id" class="block text-gray-700 text-sm font-bold mb-2">Pessoa:</label>
                             <div class="flex items-center justify-between">
                                 <select name="pessoa_id" id="pessoa_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                                    <option value="0">Selecione a pessoa</option>
                                     @foreach ($pessoas as $pessoa)
                                         <option value="{{ $pessoa->id }}">{{ $pessoa->nome }}</option>
                                     @endforeach
@@ -37,6 +38,7 @@
                                 <label for="condicao_id" class="block text-gray-700 text-sm font-bold mb-2">Condição:</label>
                                 <div class="flex items-center justify-between">
                                     <select name="condicao_id" id="condicao_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                                        <option value="0">Selecione a condição</option>
                                         @foreach ($condicaos as $condicao)
                                             <option value="{{ $condicao->id }}">{{ $condicao->denominacao }}</option>
                                         @endforeach
@@ -50,8 +52,9 @@
                                 <label for="grupo_id" class="block text-gray-700 text-sm font-bold mb-2">Grupo:</label>
                                 <div class="flex items-center justify-between">
                                     <select name="grupo_id" id="grupo_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                                        <option value="0">Selecione o grupo</option>
                                         @foreach ($grupos as $grupo)
-                                            <option value="{{ $grupo->id }}">{{ $grupo->denominacao }}</option>
+                                            <option value="{{ $grupo->id }}">{{$grupo->projeto->denominacao}}&nbsp;-&nbsp;{{ $grupo->denominacao }}</option>
                                         @endforeach
                                     </select>
                                     <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" data-modal-toggle="grupo-modal">
@@ -210,8 +213,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 </x-app-layout>
+

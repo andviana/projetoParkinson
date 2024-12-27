@@ -78,6 +78,7 @@ class PacienteController extends Controller
      */
     public function update(Request $request, Paciente $paciente)
     {
+//        dump($request->get('pessoa_id')); die;
         $validatedData = $request->validate([
             'pessoa_id' => 'required|exists:pessoas,id',
             'grupo_id' => 'required|exists:grupos,id',
