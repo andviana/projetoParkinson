@@ -111,26 +111,26 @@
                                             </div>
                                         </div>
                                             <div class="">
-                                                <input type="checkbox" name="hipereconecidade_e" id="hipereconecidade_e" {{ isset($atendimento) && $atendimento->atendimentoTCS->hipereconecidade_e ? 'checked' : '' }}
+                                                <input type="checkbox" name="hiperecogenecidade_e" id="hiperecogenecidade_e" {{ isset($atendimento) && $atendimento->atendimentoTCS->hiperecogenecidade_e ? 'checked' : '' }}
                                                 class="shadow appearance-none border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                                <label for="hipereconecidade_e" class=" text-gray-700 text-sm font-bold mb-2">Hiperecogenicidade E</label>
+                                                <label for="hiperecogenecidade_e" class=" text-gray-700 text-sm font-bold mb-2">Hiperecogenicidade E</label>
                                             </div>
                                             <div class="mb-4">
-                                                <input type="checkbox" name="hipereconecidade_d" id="hipereconecidade_d" {{ isset($atendimento) && $atendimento->atendimentoTCS->hipereconecidade_d ? 'checked' : '' }}
+                                                <input type="checkbox" name="hiperecogenecidade_d" id="hiperecogenecidade_d" {{ isset($atendimento) && $atendimento->atendimentoTCS->hiperecogenecidade_d ? 'checked' : '' }}
                                                 class="shadow appearance-none border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                                <label for="hipereconecidade_d" class=" text-gray-700 text-sm font-bold mb-2">Hiperecogenicidade D</label>
+                                                <label for="hiperecogenecidade_d" class=" text-gray-700 text-sm font-bold mb-2">Hiperecogenicidade D</label>
                                             </div>
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div class="mb-4">
-                                                <label for="hipereconecidade_d_area" class="block text-gray-700 text-sm font-bold mb-2">Hiperecogenicidade D Área:</label>
-                                                <input type="number" step="0.01" name="hipereconecidade_d_area" id="hipereconecidade_d_area"
-                                                       value="{{ old('hipereconecidade_d_area', isset($atendimento) ? $atendimento->atendimentoTCS->hipereconecidade_d_area : '') }}"
+                                                <label for="hiperecogenecidade_d_area" class="block text-gray-700 text-sm font-bold mb-2">Hiperecogenicidade D Área:</label>
+                                                <input type="number" step="0.01" name="hiperecogenecidade_d_area" id="hiperecogenecidade_d_area"
+                                                       value="{{ old('hiperecogenecidade_d_area', isset($atendimento) ? $atendimento->atendimentoTCS->hiperecogenecidade_d_area : '') }}"
                                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                             </div>
                                             <div class="mb-4">
-                                                <label for="hipereconecidade_e_area" class="block text-gray-700 text-sm font-bold mb-2">Hiperecogenicidade E Área:</label>
-                                                <input type="number" step="0.01" name="hipereconecidade_e_area" id="hipereconecidade_e_area"
-                                                       value="{{ old('hipereconecidade_e_area', isset($atendimento) ? $atendimento->atendimentoTCS->hipereconecidade_e_area : '') }}"
+                                                <label for="hiperecogenecidade_e_area" class="block text-gray-700 text-sm font-bold mb-2">Hiperecogenicidade E Área:</label>
+                                                <input type="number" step="0.01" name="hiperecogenecidade_e_area" id="hiperecogenecidade_e_area"
+                                                       value="{{ old('hiperecogenecidade_e_area', isset($atendimento) ? $atendimento->atendimentoTCS->hiperecogenecidade_e_area : '') }}"
                                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                             </div>
                                         </div>
@@ -153,8 +153,8 @@
                                                         <input type="number" step="0.01" name="p1_e_velocidade_media" id="p1_e_velocidade_media" value="{{ old('p1_e_velocidade_media', isset($atendimento) ? $atendimento->atendimentoDoppler->p1_e_velocidade_media : '') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                                     </div>
                                                     <div class="mb-4">
-                                                        <label for="p1_e_pico_distolico" class="block text-gray-700 text-sm font-bold mb-2">Pico Distólico:</label>
-                                                        <input type="number" step="0.01" name="p1_e_pico_distolico" id="p1_e_pico_distolico" value="{{ old('p1_e_pico_distolico', isset($atendimento) ? $atendimento->atendimentoDoppler->p1_e_pico_distolico : '') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                                        <label for="p1_e_pico_diastolico" class="block text-gray-700 text-sm font-bold mb-2">Pico Diastólico:</label>
+                                                        <input type="number" step="0.01" name="p1_e_pico_diastolico" id="p1_e_pico_diastolico" value="{{ old('p1_e_pico_diastolico', isset($atendimento) ? $atendimento->atendimentoDoppler->p1_e_pico_diastolico : '') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                                     </div>
                                                     <div class="mb-4">
                                                         <label for="p1_e_pico_cistolico" class="block text-gray-700 text-sm font-bold mb-2">Pico Sistólico:</label>
@@ -176,8 +176,8 @@
                                                         <input type="number" step="0.01" name="p1_d_velocidade_media" id="p1_d_velocidade_media" value="{{ old('p1_d_velocidade_media', isset($atendimento) ? $atendimento->atendimentoDoppler->p1_d_velocidade_media : '') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                                     </div>
                                                     <div class="mb-4">
-                                                        <label for="p1_d_pico_distolico" class="block text-gray-700 text-sm font-bold mb-2">Pico Distólico:</label>
-                                                        <input type="number" step="0.01" name="p1_d_pico_distolico" id="p1_d_pico_distolico" value="{{ old('p1_d_pico_distolico', isset($atendimento) ? $atendimento->atendimentoDoppler->p1_d_pico_distolico : '') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                                        <label for="p1_d_pico_diastolico" class="block text-gray-700 text-sm font-bold mb-2">Pico Diastólico:</label>
+                                                        <input type="number" step="0.01" name="p1_d_pico_diastolico" id="p1_d_pico_diastolico" value="{{ old('p1_d_pico_diastolico', isset($atendimento) ? $atendimento->atendimentoDoppler->p1_d_pico_diastolico : '') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                                     </div>
                                                     <div class="mb-4">
                                                         <label for="p1_d_pico_cistolico" class="block text-gray-700 text-sm font-bold mb-2">Pico Sistólico:</label>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pessoa;
 use App\Models\Profissional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class ProfissionalController extends Controller
 {
@@ -22,8 +24,7 @@ class ProfissionalController extends Controller
      */
     public function create()
     {
-        $pessoas = Pessoa::all();
-        return view('profissionals.create', compact('pessoas'));
+        return view('profissionals.create');
     }
 
     /**
@@ -32,12 +33,38 @@ class ProfissionalController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'nome' => ['required', 'string', 'max:255'],
+            'dataNascimento' => [
+                'required',
+                'date',
+                'before_or_equal:today', // Menor ou igual a hoje
+                'after_or_equal:1900-01-01' // Maior ou igual a 01/01/1900
+            ],
+            'genero' => ['required'],
             'registro' => 'required|string',
             'denominacao' => 'required|string',
             'especialidade' => 'required|string',
-            'pessoa_id' => 'required|exists:pessoas,id',
         ]);
-        Profissional::create($validatedData);
+
+        DB::transaction(function () use ($validatedData) {
+            $pessoa = new Pessoa();
+            $pessoa->fill([
+                'nome' => $validatedData['nome'],
+                'dataNascimento' => $validatedData['dataNascimento'],
+                'genero' => $validatedData['genero'],
+            ]);
+            $pessoa->save();
+
+            $profissional = new Profissional();
+            $profissional->fill([
+                'registro' => $validatedData['registro'],
+                'denominacao' => $validatedData['denominacao'],
+                'especialidade' => $validatedData['especialidade'],
+                'pessoa_id' => $pessoa->id,
+            ]);
+            $profissional->save();
+        });
+
         return redirect()->route('profissionals.index')->with('success', 'Profissional criado com sucesso!');
     }
 
@@ -64,15 +91,20 @@ class ProfissionalController extends Controller
     public function update(Request $request, Profissional $profissional)
     {
         $request->validate([
-            'registro' => 'required|string' . $profissional->id,
+            'registro' => 'required|string',
             'denominacao' => 'required|string',
-            'pessoa_id' => 'required|exists:pessoas,id',
+            'especialidade' => 'required|string',
         ]);
 
-        $profissional->update($request->all());
+        $profissional->update([
+            'registro' => $request->input('registro'),
+            'denominacao' => $request->input('denominacao'),
+            'especialidade' => $request->input('especialidade'),
+                    ]);
 
         return redirect()->route('profissionals.index')->with('success', 'Profissional atualizado com sucesso!');
     }
+
 
     /**
      * Remove the specified resource from storage.

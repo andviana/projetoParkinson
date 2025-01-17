@@ -20,7 +20,6 @@
                     <form action="{{ route('pacientes.update', $paciente->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" name="pessoa_id" id="pessoa_id" value="{{$paciente->pessoa->id}}">
                         <div class="mb-4 border  rounded  p-4 border-blue-200 border-l-4">
                             <span class="text-2xl font-semibold text-gray-600"> <i class="fas fa-user mr-2 text-gray-200"></i>{{ $paciente->pessoa->nome }}</span>
                         </div>

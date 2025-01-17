@@ -7,9 +7,11 @@ use App\Models\AtendimentoDoppler;
 use App\Models\AtendimentoNV;
 use App\Models\AtendimentoTCS;
 use App\Models\Paciente;
+use App\Models\Pessoa;
 use App\Models\Profissional;
 use App\Models\TipoAtendimento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AtendimentoController extends Controller
 {
@@ -18,7 +20,9 @@ class AtendimentoController extends Controller
      */
     public function index()
     {
-        //
+        $atendimentos = Atendimento::all(); // Busca todos os atendimento no BD
+//        $atendimentos = Atendimento::with('paciente.pessoa')->get();
+        return view('atendimentos.index', ['atendimentos' => $atendimentos]);
     }
 
     /**
@@ -50,47 +54,49 @@ class AtendimentoController extends Controller
             ],
         ]);
 
-        $atendimento = new Atendimento();
-        $atendimento->paciente_id = $validatedData['paciente_id'];
-        $atendimento->tipo_atendimento_id = $validatedData['tipo_atendimento_id'];
-        $atendimento->dataAtendimento = $validatedData['dataAtendimento'];
-        $atendimento->user_id = auth()->user()->id;
+        DB::transaction(function () use ($validatedData, $request) {
+            $atendimento = new Atendimento();
+            $atendimento->paciente_id = $validatedData['paciente_id'];
+            $atendimento->tipo_atendimento_id = $validatedData['tipo_atendimento_id'];
+            $atendimento->dataAtendimento = $validatedData['dataAtendimento'];
+            $atendimento->profissional_id = $validatedData['profissional_id'];
+            $atendimento->user_id = auth()->user()->id;
+            $atendimento->save();
+            $atendimentoNV = new AtendimentoNV($request->only([
+                'area_secao_transversal_d',
+                'area_secao_transversal_e',
+                'profissional_id',
+            ]));
+            $atendimentoNV->profissional_id = $validatedData['profissional_id'];
 
-        $atendimento->save();
+            $atendimentoTCS = new AtendimentoTCS($request->only([
+                'janela_temporal_d',
+                'janela_temporal_e',
+                'observacao_mesoencefalo',
+                'area_total_mesoencefalo',
+                'hiperecogenecidade_d',
+                'hiperecogenecidade_d_area',
+                'hiperecogenecidade_e',
+                'hiperecogenecidade_e_area',
+            ]));
+            $atendimentoTCS->profissional_id = $validatedData['profissional_id'];
 
-        $atendimentoNV = new AtendimentoNV($request->only([
-            'area_secao_transversal_d',
-            'area_secao_transversal_e',
-            'profissional_id',
-        ]));
+            $atendimentoDoppler = new AtendimentoDoppler($request->only([
+                'p1_d_indice_pulsatilidade',
+                'p1_d_velocidade_media',
+                'p1_d_pico_diastolico',
+                'p1_d_pico_cistolico',
+                'p1_e_indice_pulsatilidade',
+                'p1_e_velocidade_media',
+                'p1_e_pico_diastolico',
+                'p1_e_pico_cistolico',
+            ]));
+            $atendimentoDoppler->profissional_id = $validatedData['profissional_id'];
 
-        $atendimentoTCS = new AtendimentoTCS($request->only([
-            'janela_temporal_d',
-            'janela_temporal_e',
-            'observacao_mesoencefalo',
-            'area_total_mesoencefalo',
-            'hipereconecidade_d',
-            'hipereconecidade_d_area',
-            'hipereconecidade_e',
-            'hipereconecidade_e_area',
-            'profissional_id',
-        ]));
-
-        $atendimentoDoppler = new AtendimentoDoppler($request->only([
-            'p1_d_indice_pulsatilidade',
-            'p1_d_velocidade_media',
-            'p1_d_pico_distolico',
-            'p1_d_pico_cistolico',
-            'p1_e_indice_pulsatilidade',
-            'p1_e_velocidade_media',
-            'p1_e_pico_distolico',
-            'p1_e_pico_cistolico',
-            'profissional_id',
-        ]));
-
-        $atendimento->atendimentoNV->save($atendimentoNV);
-        $atendimento->atendimentoTCS->save($atendimentoTCS);
-        $atendimento->atendimentoDoppler->save($atendimentoDoppler);
+            $atendimento->atendimentoNV()->save($atendimentoNV);
+            $atendimento->atendimentoDoppler()->save($atendimentoDoppler);
+            $atendimento->atendimentoTCS()->save($atendimentoTCS);
+        });
 
         return redirect()->route('pacientes.index')->with('success', 'Atendimento criado com sucesso!');
     }

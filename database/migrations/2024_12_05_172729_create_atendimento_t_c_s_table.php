@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->boolean('janela_temporal_d');
             $table->boolean('janela_temporal_e');
-            $table->integer('obervacao_mesoencefalo');
+            $table->integer('observacao_mesoencefalo');
             $table->decimal('area_total_mesoencefalo');
             $table->boolean('hiperecogenecidade_d');
             $table->boolean('hiperecogenecidade_d_area');

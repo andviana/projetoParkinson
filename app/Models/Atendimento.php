@@ -18,7 +18,7 @@ class Atendimento extends Model
     {
         return $this->hasOne(AtendimentoDoppler::class);
     }
-    public function atendimentoNV(): hasOne
+    public function atendimentoNV(): HasOne
     {
         return $this->hasOne(AtendimentoNV::class);
     }
@@ -33,6 +33,11 @@ class Atendimento extends Model
     public function tipoAtendimento(): HasOne
     {
         return $this->hasOne(TipoAtendimento::class);
+    }
+
+    public function profissional(): HasOne
+    {
+        return $this->hasOne(Profissional::class);
     }
     public function user(): HasOne
     {

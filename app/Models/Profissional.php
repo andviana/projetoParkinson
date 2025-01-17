@@ -23,6 +23,11 @@ class Profissional extends Model
     {
         return $this->belongsTo(Pessoa::class);
     }
+
+    public function atendimentos(): HasMany
+    {
+        return $this->hasMany(Atendimento::class);
+    }
     public function atendimentoDopplers(): HasMany
     {
         return $this->hasMany(AtendimentoDoppler::class);

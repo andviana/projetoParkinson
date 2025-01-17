@@ -6,7 +6,9 @@ use App\Models\Condicao;
 use App\Models\Grupo;
 use App\Models\Paciente;
 use App\Models\Pessoa;
+use App\Models\Profissional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PacienteController extends Controller
 {
@@ -25,10 +27,9 @@ class PacienteController extends Controller
      */
     public function create()
     {
-        $pessoas = Pessoa::all();
         $grupos = Grupo::all();
         $condicaos = Condicao::all();
-                return view('pacientes.create', compact('pessoas', 'grupos', 'condicaos'));
+                return view('pacientes.create', compact( 'grupos', 'condicaos'));
     }
 
     /**
@@ -37,19 +38,39 @@ class PacienteController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'pessoa_id' => 'required|exists:pessoas,id',
+            'nome' => ['required', 'string', 'max:255'],
+            'dataNascimento' => [
+                'required',
+                'date',
+                'before_or_equal:today', // Menor ou igual a hoje
+                'after_or_equal:1900-01-01' // Maior ou igual a 01/01/1900
+            ],
+            'genero' => ['required'],
             'grupo_id' => 'required|exists:grupos,id',
             'condicao_id' => 'required|exists:condicaos,id',
         ]);
-        $paciente = [
-            'pessoa_id' => $validatedData['pessoa_id'],
-            'grupo_id' => $validatedData['grupo_id'],
-            'condicao_id' => $validatedData['condicao_id'],
-            'ativo' => true,
-            'dataVinculo' => now(),
-            'dataDesligamento' => null,
-        ];
-        Paciente::create($paciente);
+
+        DB::transaction(function () use ($validatedData) {
+            $pessoa = new Pessoa();
+            $pessoa->fill([
+                'nome' => $validatedData['nome'],
+                'dataNascimento' => $validatedData['dataNascimento'],
+                'genero' => $validatedData['genero'],
+            ]);
+            $pessoa->save();
+
+            $paciente = new Paciente();
+            $paciente->fill([
+                'grupo_id' => $validatedData['grupo_id'],
+                'condicao_id' => $validatedData['condicao_id'],
+                'ativo' => true,
+                'dataVinculo' => now(),
+                'dataDesligamento' => null,
+                'pessoa_id' => $pessoa->id,
+            ]);
+            $paciente->save();
+        });
+
         return redirect()->route('pacientes.index')->with('success', 'Paciente criado com sucesso!');
 
     }
@@ -67,10 +88,9 @@ class PacienteController extends Controller
      */
     public function edit(Paciente $paciente)
     {
-        $pessoas = Pessoa::all();
         $grupos = Grupo::all();
         $condicaos = Condicao::all();
-        return view('pacientes.edit', compact('paciente','pessoas', 'grupos', 'condicaos'));
+        return view('pacientes.edit', compact('paciente', 'grupos', 'condicaos'));
     }
 
     /**
@@ -80,7 +100,6 @@ class PacienteController extends Controller
     {
 //        dump($request->get('pessoa_id')); die;
         $validatedData = $request->validate([
-            'pessoa_id' => 'required|exists:pessoas,id',
             'grupo_id' => 'required|exists:grupos,id',
             'condicao_id' => 'required|exists:condicaos,id',
         ]);

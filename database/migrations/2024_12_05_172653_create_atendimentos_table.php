@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('paciente_id')->constrained()->cascadeOnUpdate();
             $table->foreignId('tipo_atendimento_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('profissional_id')->constrained()->cascadeOnUpdate();
         });
     }
 
